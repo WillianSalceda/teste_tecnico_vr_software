@@ -38,7 +38,7 @@ func TestClient_GetAddressByCEP_InvalidCEP(t *testing.T) {
 
 	client := viacep.NewClient(srv.URL, 0)
 	_, err := client.GetAddressByCEP(context.Background(), "00000000")
-	if err != viacep.ErrCEPInvalido {
-		t.Errorf("expected ErrCEPInvalido, got %v", err)
+	if err != viacep.ErrCEPInvalid {
+		t.Errorf("expected ErrCEPInvalid, got %v", err)
 	}
 }
