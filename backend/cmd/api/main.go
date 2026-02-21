@@ -27,7 +27,7 @@ func main() {
 		dbURL = "postgres://postgres:postgres@localhost:5432/realestate?sslmode=disable"
 	}
 
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
 		log.Fatalf("failed to open db: %v", err)
 	}
