@@ -2,8 +2,12 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/williansalceda/teste_tecnico_vr_software/backend/internal/handler"
+
+	_ "github.com/williansalceda/teste_tecnico_vr_software/backend/docs"
 )
 
 func SetupRouter(
@@ -38,5 +42,6 @@ func SetupRouter(
 		api.POST("/upload", uploadHandler.Upload)
 	}
 
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }
