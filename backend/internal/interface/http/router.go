@@ -9,6 +9,7 @@ import (
 func SetupRouter(
 	addressHandler *handler.AddressHandler,
 	listingHandler *handler.ListingHandler,
+	exchangeRateHandler *handler.ExchangeRateHandler,
 ) *gin.Engine {
 	r := gin.Default()
 
@@ -31,6 +32,8 @@ func SetupRouter(
 		api.POST("/listings", listingHandler.Create)
 		api.GET("/listings", listingHandler.List)
 		api.GET("/address/cep/:cep", addressHandler.GetByCEP)
+		api.POST("/exchange-rates", exchangeRateHandler.Create)
+		api.GET("/exchange-rates", exchangeRateHandler.List)
 	}
 
 	return r
