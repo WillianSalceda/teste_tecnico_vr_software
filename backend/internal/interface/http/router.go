@@ -6,7 +6,10 @@ import (
 	"github.com/williansalceda/teste_tecnico_vr_software/backend/internal/handler"
 )
 
-func SetupRouter(addressHandler *handler.AddressHandler) *gin.Engine {
+func SetupRouter(
+	addressHandler *handler.AddressHandler,
+	listingHandler *handler.ListingHandler,
+) *gin.Engine {
 	r := gin.Default()
 
 	r.Use(func(c *gin.Context) {
@@ -25,6 +28,8 @@ func SetupRouter(addressHandler *handler.AddressHandler) *gin.Engine {
 
 	api := r.Group("/api/v1")
 	{
+		api.POST("/listings", listingHandler.Create)
+		api.GET("/listings", listingHandler.List)
 		api.GET("/address/cep/:cep", addressHandler.GetByCEP)
 	}
 
