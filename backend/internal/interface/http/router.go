@@ -33,6 +33,7 @@ func SetupRouter(
 	r.Static("/uploads", "./uploads")
 
 	api := r.Group("/api/v1")
+	api.Use(JWTAuth())
 	{
 		api.POST("/listings", listingHandler.Create)
 		api.GET("/listings", listingHandler.List)
