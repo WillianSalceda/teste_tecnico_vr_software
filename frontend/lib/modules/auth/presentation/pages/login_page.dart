@@ -6,6 +6,13 @@ import '../../../../core/l10n/app_l10n.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../bloc/auth_bloc.dart';
 
+bool _isInvalidCredentialsError(String message) {
+  print(message);
+  final m = message.toLowerCase();
+  return m.contains('invalid') &&
+      (m.contains('username') || m.contains('password'));
+}
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -135,6 +142,12 @@ class _LoginContentState extends State<_LoginContent> {
                             curr is AuthError || curr is AuthLoading,
                         builder: (context, state) {
                           if (state is AuthError) {
+                            final displayMessage =
+                                _isInvalidCredentialsError(
+                                  state.message,
+                                )
+                                ? widget.l10n.loginFailed
+                                : state.message;
                             return Container(
                               padding: const EdgeInsets.all(12),
                               margin: const EdgeInsets.only(bottom: 16),
@@ -154,7 +167,7 @@ class _LoginContentState extends State<_LoginContent> {
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: Text(
-                                      state.message,
+                                      displayMessage,
                                       style: TextStyle(
                                         color: Theme.of(
                                           context,
@@ -181,7 +194,8 @@ class _LoginContentState extends State<_LoginContent> {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                         child: BlocBuilder<AuthBloc, AuthState>(
-                          buildWhen: (prev, curr) => curr is AuthLoading,
+                          buildWhen: (prev, curr) =>
+                              curr is AuthLoading || curr is AuthError,
                           builder: (context, state) {
                             if (state is AuthLoading) {
                               return const SizedBox(
