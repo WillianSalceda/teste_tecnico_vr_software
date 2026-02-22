@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class CepSearch extends StatelessWidget {
+class CepSearch extends StatefulWidget {
   const CepSearch({
     required this.controller,
     required this.cepLabel,
-    required this.searchLabel,
     required this.onSearch,
     super.key,
     this.cepHint = '00000-000',
@@ -12,30 +13,47 @@ class CepSearch extends StatelessWidget {
 
   final TextEditingController controller;
   final String cepLabel;
-  final String searchLabel;
   final String cepHint;
-  final VoidCallback onSearch;
+  final void Function(String cep) onSearch;
+
+  @override
+  State<CepSearch> createState() => _CepSearchState();
+}
+
+class _CepSearchState extends State<CepSearch> {
+  Timer? _debounceTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onCepChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onCepChanged);
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
+
+  void _onCepChanged() {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      final cep = widget.controller.text.trim();
+      if (cep.length >= 8) {
+        widget.onSearch(cep);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: cepLabel,
-              hintText: cepHint,
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        ElevatedButton(
-          onPressed: onSearch,
-          child: Text(searchLabel),
-        ),
-      ],
+    return TextField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+        labelText: widget.cepLabel,
+        hintText: widget.cepHint,
+      ),
     );
   }
 }
