@@ -1,0 +1,42 @@
+{
+  "appTitle": "Real Estate Ads",
+  "listings": "Listings",
+  "createListing": "Create Listing",
+  "exchangeRates": "Exchange Rates",
+  "addExchangeRate": "Add Exchange Rate",
+  "type": "Type",
+  "sale": "Sale",
+  "rent": "Rent",
+  "valueBRL": "Value (BRL)",
+  "valueUSD": "Value (USD)",
+  "image": "Image",
+  "address": "Address",
+  "cep": "CEP",
+  "street": "Street",
+  "number": "Number",
+  "complement": "Complement",
+  "neighborhood": "Neighborhood",
+  "city": "City",
+  "state": "State",
+  "searchByCep": "Search by CEP",
+  "rate": "Rate (1 BRL = X USD)",
+  "save": "Save",
+  "cancel": "Cancel",
+  "loading": "Loading...",
+  "error": "Error",
+  "cepNotFound": "CEP not found",
+  "addressServiceUnavailable": "Address lookup service unavailable",
+  "fillAddressManually": "Please fill the address manually",
+  "requiredField": "This field is required",
+  "invalidCep": "Invalid CEP format",
+  "noImage": "No image",
+  "page": "Page",
+  "pageOf": "of {total}",
+  "@pageOf": {
+    "placeholders": {
+      "total": { "type": "int" }
+    }
+  },
+  "filterByType": "Filter by type",
+  "all": "All"
+}
