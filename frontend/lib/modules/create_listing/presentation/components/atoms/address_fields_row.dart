@@ -9,6 +9,8 @@ class AddressFieldsRow extends StatelessWidget {
     super.key,
     this.firstFlex = 1,
     this.secondFlex = 1,
+    this.firstValidator,
+    this.secondValidator,
   });
 
   final TextEditingController firstController;
@@ -17,6 +19,8 @@ class AddressFieldsRow extends StatelessWidget {
   final String secondLabel;
   final int firstFlex;
   final int secondFlex;
+  final String? Function(String?)? firstValidator;
+  final String? Function(String?)? secondValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +28,19 @@ class AddressFieldsRow extends StatelessWidget {
       children: [
         Expanded(
           flex: firstFlex,
-          child: TextField(
+          child: TextFormField(
             controller: firstController,
             decoration: InputDecoration(labelText: firstLabel),
+            validator: firstValidator,
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: secondFlex,
-          child: TextField(
+          child: TextFormField(
             controller: secondController,
             decoration: InputDecoration(labelText: secondLabel),
+            validator: secondValidator,
           ),
         ),
       ],

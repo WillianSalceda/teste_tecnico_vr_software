@@ -33,20 +33,6 @@ class _CreateListingContent extends StatelessWidget {
 
   final AppL10n l10n;
 
-  String _resolveError(String? key) {
-    if (key == null) return '';
-    switch (key) {
-      case 'requiredField':
-        return l10n.requiredField;
-      case 'invalidValue':
-        return l10n.invalidValue;
-      case 'invalidType':
-        return l10n.invalidType;
-      default:
-        return key;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<CepBloc, CepState>(
@@ -94,7 +80,6 @@ class _CreateListingContent extends StatelessWidget {
                 ? const Center(child: CircularProgressIndicator())
                 : CreateListingFormTemplate(
                     l10n: l10n,
-                    resolveError: _resolveError,
                     state: formState,
                     createListingBloc: bloc,
                   ),

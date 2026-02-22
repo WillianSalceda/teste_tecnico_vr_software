@@ -15,6 +15,7 @@ class CreateListingAddressForm extends StatelessWidget {
     required this.cityController,
     required this.stateController,
     required this.l10n,
+    required this.requiredFieldMessage,
     required this.onSearchCep,
     super.key,
   });
@@ -27,7 +28,13 @@ class CreateListingAddressForm extends StatelessWidget {
   final TextEditingController cityController;
   final TextEditingController stateController;
   final AppL10n l10n;
+  final String requiredFieldMessage;
   final void Function(String cep) onSearchCep;
+
+  String? _requiredValidator(String? value) {
+    if (value == null || value.trim().isEmpty) return requiredFieldMessage;
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +47,14 @@ class CreateListingAddressForm extends StatelessWidget {
           controller: cepController,
           cepLabel: l10n.cep,
           onSearch: onSearchCep,
+          requiredFieldMessage: requiredFieldMessage,
+          invalidCepMessage: l10n.invalidCep,
         ),
         const SizedBox(height: 8),
         TextFieldMolecule(
           controller: streetController,
           label: l10n.street,
+          validator: _requiredValidator,
         ),
         const SizedBox(height: 8),
         AddressFieldsRow(
@@ -54,11 +64,14 @@ class CreateListingAddressForm extends StatelessWidget {
           secondLabel: l10n.complement,
           firstFlex: 1,
           secondFlex: 2,
+          firstValidator: _requiredValidator,
+          secondValidator: null,
         ),
         const SizedBox(height: 8),
         TextFieldMolecule(
           controller: neighborhoodController,
           label: l10n.neighborhood,
+          validator: _requiredValidator,
         ),
         const SizedBox(height: 8),
         AddressFieldsRow(
@@ -68,6 +81,8 @@ class CreateListingAddressForm extends StatelessWidget {
           secondLabel: l10n.state,
           firstFlex: 2,
           secondFlex: 1,
+          firstValidator: _requiredValidator,
+          secondValidator: _requiredValidator,
         ),
       ],
     );

@@ -50,3 +50,7 @@ class NavigateTo extends CreateListingEvent {
 class NavigationHandled extends CreateListingEvent {
   const NavigationHandled();
 }
+
+class AddressRevalidationHandled extends CreateListingEvent {
+  const AddressRevalidationHandled();
+}

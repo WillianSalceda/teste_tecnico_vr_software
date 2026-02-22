@@ -6,20 +6,21 @@ class TextFieldMolecule extends StatelessWidget {
     required this.label,
     super.key,
     this.keyboardType,
-    this.decoration,
+    this.validator,
   });
 
   final TextEditingController controller;
   final String label;
   final TextInputType? keyboardType;
-  final InputDecoration? decoration;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      decoration: decoration ?? InputDecoration(labelText: label),
+      decoration: InputDecoration(labelText: label),
+      validator: validator,
     );
   }
 }

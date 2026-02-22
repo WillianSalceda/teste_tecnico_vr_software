@@ -32,13 +32,6 @@ class CreateListing implements UseCase<void, CreateListingParams> {
   }
 
   Failure? _validate(CreateListingParams params) {
-    if (params.street.trim().isEmpty ||
-        params.neighborhood.trim().isEmpty ||
-        params.city.trim().isEmpty ||
-        params.state.trim().isEmpty) {
-      return LocalFailure(message: 'requiredField');
-    }
-
     final value = double.tryParse(
       params.valueStr.replaceAll(',', '.'),
     );

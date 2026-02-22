@@ -12,6 +12,7 @@ class CreateListingBloc extends Bloc<CreateListingEvent, CreateListingState> {
   CreateListingBloc(this._createListing)
     : super(const CreateListingFormState()) {
     on<CepLookupSucceeded>(_onCepLookupSucceeded);
+    on<AddressRevalidationHandled>(_onAddressRevalidationHandled);
     on<CreateListingTypeChanged>(_onTypeChanged);
     on<CreateListingImagePathChanged>(_onImagePathChanged);
     on<NavigateTo>(_onNavigateTo);
@@ -42,7 +43,15 @@ class CreateListingBloc extends Bloc<CreateListingEvent, CreateListingState> {
     cityController.text = event.address.city;
     stateController.text = event.address.state;
     final s = _formState;
-    if (s != null) emit(s.copyWith());
+    if (s != null) emit(s.copyWith(addressFilledFromCep: true));
+  }
+
+  void _onAddressRevalidationHandled(
+    AddressRevalidationHandled event,
+    Emitter<CreateListingState> emit,
+  ) {
+    final s = _formState;
+    if (s != null) emit(s.copyWith(addressFilledFromCep: false));
   }
 
   void _onTypeChanged(

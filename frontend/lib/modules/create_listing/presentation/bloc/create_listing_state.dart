@@ -14,6 +14,7 @@ class CreateListingFormState extends CreateListingState {
     this.isLoading = false,
     this.errorMessage,
     this.success = false,
+    this.addressFilledFromCep = false,
   });
 
   final String type;
@@ -21,6 +22,7 @@ class CreateListingFormState extends CreateListingState {
   final bool isLoading;
   final String? errorMessage;
   final bool success;
+  final bool addressFilledFromCep;
 
   static const _sentinel = Object();
 
@@ -30,6 +32,7 @@ class CreateListingFormState extends CreateListingState {
     bool? isLoading,
     Object? errorMessage = _sentinel,
     bool? success,
+    bool? addressFilledFromCep,
   }) => CreateListingFormState(
     type: type ?? this.type,
     imagePath: identical(imagePath, _sentinel)
@@ -40,6 +43,7 @@ class CreateListingFormState extends CreateListingState {
         ? this.errorMessage
         : errorMessage as String?,
     success: success ?? this.success,
+    addressFilledFromCep: addressFilledFromCep ?? this.addressFilledFromCep,
   );
 
   @override
@@ -49,6 +53,7 @@ class CreateListingFormState extends CreateListingState {
     isLoading,
     errorMessage,
     success,
+    addressFilledFromCep,
   ];
 }
 

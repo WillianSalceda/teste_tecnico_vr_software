@@ -7,6 +7,8 @@ class CepSearch extends StatefulWidget {
     required this.controller,
     required this.cepLabel,
     required this.onSearch,
+    required this.requiredFieldMessage,
+    required this.invalidCepMessage,
     super.key,
     this.cepHint = '00000-000',
   });
@@ -15,6 +17,8 @@ class CepSearch extends StatefulWidget {
   final String cepLabel;
   final String cepHint;
   final void Function(String cep) onSearch;
+  final String requiredFieldMessage;
+  final String invalidCepMessage;
 
   @override
   State<CepSearch> createState() => _CepSearchState();
@@ -40,20 +44,31 @@ class _CepSearchState extends State<CepSearch> {
     _debounceTimer?.cancel();
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       final cep = widget.controller.text.trim();
-      if (cep.length >= 8) {
-        widget.onSearch(cep);
+      final digitsOnly = cep.replaceAll(RegExp(r'\D'), '');
+      if (digitsOnly.length == 8) {
+        widget.onSearch(digitsOnly);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.cepLabel,
         hintText: widget.cepHint,
       ),
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return widget.requiredFieldMessage;
+        }
+        final digitsOnly = value.replaceAll(RegExp(r'\D'), '');
+        if (digitsOnly.length != 8) {
+          return widget.invalidCepMessage;
+        }
+        return null;
+      },
     );
   }
 }
