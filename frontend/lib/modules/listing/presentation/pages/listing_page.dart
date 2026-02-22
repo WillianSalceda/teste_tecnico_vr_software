@@ -71,8 +71,8 @@ class _ListingContentState extends State<_ListingContent> {
     return BlocListener<ListingBloc, ListingState>(
       listenWhen: (_, curr) => curr is ListingFilterUpdated,
       listener: (context, state) {
-        if (state is ListingFilterUpdated) {
-          _typeFilter = state.typeFilter;
+        if (state is ListingFilterUpdated && mounted) {
+          setState(() => _typeFilter = state.typeFilter);
           _pagingController.refresh();
         }
       },
