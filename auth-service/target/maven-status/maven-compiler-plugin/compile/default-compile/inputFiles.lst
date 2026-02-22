@@ -1,0 +1,9 @@
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\AuthApiApplication.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\config\JwtProperties.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\config\WebConfig.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\controller\AuthController.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\dto\LoginRequest.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\dto\LoginResponse.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\exception\GlobalExceptionHandler.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\service\AuthService.java
+C:\Users\WillianSalceda\Development\Projects\williansalceda\teste_tecnico_vr_software\auth-service\src\main\java\com\realestate\auth\service\JwtService.java

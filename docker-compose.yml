@@ -1,4 +1,4 @@
-﻿services:
+services:
   postgres:
     image: postgres:18-alpine
     environment:
@@ -24,6 +24,7 @@
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/realestate?sslmode=disable
       BASE_URL: http://localhost:8080
+      JWT_SECRET: ${JWT_SECRET:h+JrHn3a6SzFYRgt+hqElt2DaEZT+TQambLjOtr2qNg=}
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,10 +33,12 @@
 
   auth-service:
     build:
-      context: ./auth-api
+      context: auth-service
       dockerfile: Dockerfile
     ports:
       - "9090:9090"
+    environment:
+      JWT_SECRET: ${JWT_SECRET:h+JrHn3a6SzFYRgt+hqElt2DaEZT+TQambLjOtr2qNg=}
 
 volumes:
   postgres_data:
