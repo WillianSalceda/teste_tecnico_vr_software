@@ -66,7 +66,7 @@ func (r *listingRepository) GetByID(ctx context.Context, id string) (*entities.L
 	return &listing, nil
 }
 
-func (r *listingRepository) List(ctx context.Context, filter entities.ListingFilter, page, limit int) ([]*entities.Listing, int, error) {
+func (r *listingRepository) List(ctx context.Context, filter entities.ListingFilter, page int, limit int) ([]*entities.Listing, int, error) {
 	offset := (page - 1) * limit
 
 	countQuery := `SELECT COUNT(*) FROM listings WHERE 1=1`
@@ -85,15 +85,17 @@ func (r *listingRepository) List(ctx context.Context, filter entities.ListingFil
 
 	listQuery := `SELECT id, type, value_brl, image_url, cep, street, number, complement, neighborhood, city, state, created_at
 		FROM listings WHERE 1=1`
+	listArgs := make([]interface{}, 0, 3)
+	listArgPos := 1
 	if filter.Type != nil {
-		listQuery += fmt.Sprintf(` AND type = $%d`, argPos)
-		argPos++
+		listQuery += fmt.Sprintf(` AND type = $%d`, listArgPos)
+		listArgs = append(listArgs, string(*filter.Type))
+		listArgPos++
 	}
+	listQuery += fmt.Sprintf(` ORDER BY created_at DESC LIMIT $%d OFFSET $%d`, listArgPos, listArgPos+1)
+	listArgs = append(listArgs, limit, offset)
 
-	listQuery += fmt.Sprintf(` ORDER BY created_at DESC LIMIT $%d OFFSET $%d`, argPos, argPos+1)
-	args = append(args, limit, offset)
-
-	rows, err := r.db.QueryContext(ctx, listQuery, args...)
+	rows, err := r.db.QueryContext(ctx, listQuery, listArgs...)
 	if err != nil {
 		return nil, 0, err
 	}
