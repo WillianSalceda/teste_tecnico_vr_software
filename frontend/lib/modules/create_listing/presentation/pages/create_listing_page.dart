@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/di/injection.dart';
 import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/refresh/listing_refresh_notifier.dart';
 import '../bloc/cep_bloc.dart';
 import '../bloc/create_listing_bloc.dart';
 import '../components/templates/create_listing_form_template.dart';
@@ -66,6 +67,7 @@ class _CreateListingContent extends StatelessWidget {
             );
           }
           if (state is CreateListingNavigateState) {
+            sl<ListingRefreshNotifier>().refresh();
             context.go(state.route);
             context.read<CreateListingBloc>().add(const NavigationHandled());
           }

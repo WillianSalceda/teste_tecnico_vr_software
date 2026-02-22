@@ -90,4 +90,9 @@ class AppL10n {
   String get invalidValue => isPt ? 'Valor inválido' : 'Invalid value';
 
   String get invalidType => isPt ? 'Tipo inválido' : 'Invalid type';
+
+  String get noListings =>
+      isPt ? 'Nenhum anúncio encontrado' : 'No listings found';
+
+  String get retry => isPt ? 'Tentar novamente' : 'Retry';
 }

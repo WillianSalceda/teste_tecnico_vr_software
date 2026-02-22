@@ -11,7 +11,13 @@ import '../../modules/create_listing/domain/usecases/create_listing.dart';
 import '../../modules/create_listing/domain/usecases/get_address_by_cep.dart';
 import '../../modules/create_listing/presentation/bloc/cep_bloc.dart';
 import '../../modules/create_listing/presentation/bloc/create_listing_bloc.dart';
+import '../../modules/listing/data/datasources/listing_remote_datasource.dart';
+import '../../modules/listing/data/repositories/listing_repository.dart';
+import '../../modules/listing/domain/repositories/i_listing_repository.dart';
+import '../../modules/listing/domain/usecases/get_listings.dart';
+import '../../modules/listing/presentation/bloc/listing_bloc.dart';
 import '../api/api_client.dart';
+import '../refresh/listing_refresh_notifier.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -21,7 +27,10 @@ Future<void> configureDependencies({
 }) async {
   sl
     ..registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiBaseUrl))
-    ..registerLazySingleton<Locale>(() => locale);
+    ..registerLazySingleton<Locale>(() => locale)
+    ..registerLazySingleton<ListingRefreshNotifier>(
+      () => ListingRefreshNotifier(),
+    );
 
   // create_listing
   sl
@@ -48,5 +57,20 @@ Future<void> configureDependencies({
     )
     ..registerFactory<CreateListingBloc>(
       () => CreateListingBloc(sl<CreateListing>()),
+    );
+
+  // listing
+  sl
+    ..registerFactory<IListingRemoteDatasource>(
+      () => ListingRemoteDatasource(sl<ApiClient>()),
+    )
+    ..registerFactory<IListingRepository>(
+      () => ListingRepository(sl<IListingRemoteDatasource>()),
+    )
+    ..registerFactory<GetListings>(
+      () => GetListings(sl<IListingRepository>()),
+    )
+    ..registerFactory<ListingBloc>(
+      () => ListingBloc(sl<GetListings>()),
     );
 }
