@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import 'core/di/injection.dart';
 import 'core/l10n/app_l10n.dart';
 import 'modules/home_screen.dart';
 
 class RealEstateApp extends StatelessWidget {
-  const RealEstateApp({
-    super.key,
-    required this.apiBaseUrl,
-    required this.locale,
-    this.authApiBaseUrl,
-  });
-
-  final String apiBaseUrl;
-  final Locale locale;
-  final String? authApiBaseUrl;
+  const RealEstateApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = sl<Locale>();
     return MaterialApp.router(
       title: AppL10n(locale: locale).appTitle,
       locale: locale,
