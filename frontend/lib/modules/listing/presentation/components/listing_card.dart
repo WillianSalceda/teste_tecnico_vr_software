@@ -19,9 +19,8 @@ class ListingCard extends StatelessWidget {
     final typeLabel = listing.type == ListingType.sale ? l10n.sale : l10n.rent;
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,8 +29,8 @@ class ListingCard extends StatelessWidget {
               child: listing.imageUrl != null && listing.imageUrl!.isNotEmpty
                   ? Image.network(
                       listing.imageUrl!,
-                      width: 80,
-                      height: 80,
+                      width: 96,
+                      height: 96,
                       fit: BoxFit.cover,
                       errorBuilder: (_, error, stackTrace) =>
                           _buildPlaceholder(),
@@ -83,8 +82,8 @@ class ListingCard extends StatelessWidget {
 
   Widget _buildPlaceholder() {
     return Container(
-      width: 80,
-      height: 80,
+      width: 96,
+      height: 96,
       color: Colors.grey[300],
       child: const Icon(Icons.home, size: 40),
     );

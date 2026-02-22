@@ -39,6 +39,7 @@ class RealEstateApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
             useMaterial3: true,
+            visualDensity: VisualDensity.standard,
           ),
           routerConfig: _createRouter(),
         ),

@@ -114,26 +114,12 @@ class _ExchangeRateContent extends StatelessWidget {
               );
             }
             return ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               itemCount: rates.length,
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: ExchangeRateTile(exchangeRate: rates[index]),
               ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
-      floatingActionButton: BlocBuilder<ExchangeRateBloc, ExchangeRateState>(
-        buildWhen: (prev, curr) =>
-            curr is! ExchangeRateLoading && curr is! ExchangeRateCreateLoading,
-        builder: (context, state) {
-          if (state is ExchangeRateLoaded && state.exchangeRates.isNotEmpty) {
-            return FloatingActionButton(
-              onPressed: () =>
-                  _showAddDialog(context, context.read<ExchangeRateBloc>()),
-              child: const Icon(Icons.add),
             );
           }
           return const SizedBox.shrink();

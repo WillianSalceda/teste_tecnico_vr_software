@@ -27,7 +27,7 @@ class CreateListingAddressForm extends StatelessWidget {
   final TextEditingController cityController;
   final TextEditingController stateController;
   final AppL10n l10n;
-  final VoidCallback onSearchCep;
+  final void Function(String cep) onSearchCep;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,6 @@ class CreateListingAddressForm extends StatelessWidget {
         CepSearch(
           controller: cepController,
           cepLabel: l10n.cep,
-          searchLabel: l10n.searchByCep,
           onSearch: onSearchCep,
         ),
         const SizedBox(height: 8),

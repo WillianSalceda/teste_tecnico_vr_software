@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/di/injection.dart';
 import '../core/l10n/app_l10n.dart';
-import 'auth/presentation/bloc/auth_bloc.dart';
+import '../core/refresh/listing_refresh_notifier.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -17,40 +17,38 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppL10n(locale: Localizations.localeOf(context));
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () =>
-                context.read<AuthBloc>().add(const AuthLogoutRequested()),
-            tooltip: l10n.logout,
+      body: Row(
+        children: [
+          NavigationRail(
+            selectedIndex: navigationShell.currentIndex,
+            onDestinationSelected: (index) => _onTabTap(context, index),
+            labelType: NavigationRailLabelType.all,
+            destinations: [
+              NavigationRailDestination(
+                icon: const Icon(Icons.list),
+                label: Text(l10n.listings),
+              ),
+              NavigationRailDestination(
+                icon: const Icon(Icons.add),
+                label: Text(l10n.createListing),
+              ),
+              NavigationRailDestination(
+                icon: const Icon(Icons.currency_exchange),
+                label: Text(l10n.exchangeRates),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) => _onTabTap(context, index),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.list),
-            label: l10n.listings,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.add),
-            label: l10n.createListing,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.currency_exchange),
-            label: l10n.exchangeRates,
-          ),
+          const VerticalDivider(thickness: 1, width: 1),
+          Expanded(child: navigationShell),
         ],
       ),
     );
   }
 
   void _onTabTap(BuildContext context, int index) {
+    if (index == 0) {
+      sl<ListingRefreshNotifier>().refresh();
+    }
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/l10n/app_l10n.dart';
 import '../../../../core/refresh/listing_refresh_notifier.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../bloc/cep_bloc.dart';
 import '../bloc/create_listing_bloc.dart';
 import '../components/templates/create_listing_form_template.dart';
@@ -78,7 +79,17 @@ class _CreateListingContent extends StatelessWidget {
           final bloc = context.read<CreateListingBloc>();
 
           return Scaffold(
-            appBar: AppBar(title: Text(l10n.createListing)),
+            appBar: AppBar(
+              title: Text(l10n.createListing),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () =>
+                      context.read<AuthBloc>().add(const AuthLogoutRequested()),
+                  tooltip: l10n.logout,
+                ),
+              ],
+            ),
             body: formState.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : CreateListingFormTemplate(

@@ -116,6 +116,7 @@ class CreateListingBloc extends Bloc<CreateListingEvent, CreateListingState> {
         s.copyWith(
           isLoading: false,
           errorMessage: failure.message,
+          success: false,
         ),
       ),
       (_) {

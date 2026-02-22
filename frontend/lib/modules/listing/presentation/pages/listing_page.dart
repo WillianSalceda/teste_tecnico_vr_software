@@ -6,6 +6,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/l10n/app_l10n.dart';
 import '../../../../core/refresh/listing_refresh_notifier.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../domain/entities/listing.dart';
 import '../bloc/listing_bloc.dart';
 import '../components/listing_card.dart';
@@ -83,6 +84,13 @@ class _ListingContentState extends State<_ListingContent> {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () => context.go('/create-listing'),
+              tooltip: widget.l10n.createListing,
+            ),
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () =>
+                  context.read<AuthBloc>().add(const AuthLogoutRequested()),
+              tooltip: widget.l10n.logout,
             ),
           ],
         ),
@@ -90,7 +98,7 @@ class _ListingContentState extends State<_ListingContent> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: ListingFilterChip(
                 selectedType: _typeFilter,
                 allLabel: widget.l10n.all,
@@ -106,17 +114,21 @@ class _ListingContentState extends State<_ListingContent> {
               child: PagingListener<int, Listing>(
                 controller: _pagingController,
                 builder: (context, state, fetchNextPage) =>
-                    PagedListView<int, Listing>(
+                    PagedGridView<int, Listing>(
                       state: state,
                       fetchNextPage: fetchNextPage,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      builderDelegate: PagedChildBuilderDelegate<Listing>(
-                        itemBuilder: (context, item, index) => Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: ListingCard(
-                            listing: item,
-                            l10n: widget.l10n,
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            childAspectRatio: 2.2,
                           ),
+                      builderDelegate: PagedChildBuilderDelegate<Listing>(
+                        itemBuilder: (context, item, index) => ListingCard(
+                          listing: item,
+                          l10n: widget.l10n,
                         ),
                         noItemsFoundIndicatorBuilder: (_) => Center(
                           child: Column(

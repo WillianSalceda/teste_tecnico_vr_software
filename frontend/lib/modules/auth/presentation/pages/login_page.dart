@@ -63,83 +63,88 @@ class _LoginContentState extends State<_LoginContent> {
         listener: (context, state) {},
         child: SafeArea(
           child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      widget.l10n.login,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 32),
-                    TextFormField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        labelText: widget.l10n.username,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(32),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        widget.l10n.login,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      textInputAction: TextInputAction.next,
-                      validator: (v) => (v == null || v.trim().isEmpty)
-                          ? widget.l10n.requiredField
-                          : null,
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        labelText: widget.l10n.password,
+                      const SizedBox(height: 32),
+                      TextFormField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: widget.l10n.username,
+                        ),
+                        textInputAction: TextInputAction.next,
+                        validator: (v) => (v == null || v.trim().isEmpty)
+                            ? widget.l10n.requiredField
+                            : null,
                       ),
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) => _submit(),
-                      validator: (v) => (v == null || v.isEmpty)
-                          ? widget.l10n.requiredField
-                          : null,
-                    ),
-                    const SizedBox(height: 24),
-                    BlocBuilder<AuthBloc, AuthState>(
-                      buildWhen: (prev, curr) =>
-                          curr is AuthError || curr is AuthLoading,
-                      builder: (context, state) {
-                        if (state is AuthError) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Text(
-                              state.message,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
-                              ),
-                            ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                        if (context.read<AuthBloc>().state is AuthLoading) {
-                          return;
-                        }
-                        _submit();
-                      },
-                      child: BlocBuilder<AuthBloc, AuthState>(
-                        buildWhen: (prev, curr) => curr is AuthLoading,
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: widget.l10n.password,
+                        ),
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _submit(),
+                        validator: (v) => (v == null || v.isEmpty)
+                            ? widget.l10n.requiredField
+                            : null,
+                      ),
+                      const SizedBox(height: 24),
+                      BlocBuilder<AuthBloc, AuthState>(
+                        buildWhen: (prev, curr) =>
+                            curr is AuthError || curr is AuthLoading,
                         builder: (context, state) {
-                          if (state is AuthLoading) {
-                            return const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                          if (state is AuthError) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Text(
+                                state.message,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                              ),
                             );
                           }
-                          return Text(widget.l10n.login);
+                          return const SizedBox.shrink();
                         },
                       ),
-                    ),
-                  ],
+                      FilledButton(
+                        onPressed: () {
+                          if (context.read<AuthBloc>().state is AuthLoading) {
+                            return;
+                          }
+                          _submit();
+                        },
+                        child: BlocBuilder<AuthBloc, AuthState>(
+                          buildWhen: (prev, curr) => curr is AuthLoading,
+                          builder: (context, state) {
+                            if (state is AuthLoading) {
+                              return const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              );
+                            }
+                            return Text(widget.l10n.login);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
