@@ -45,7 +45,12 @@ Future<void> configureDependencies({
   final prefs = await SharedPreferences.getInstance();
 
   sl
-    ..registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiBaseUrl))
+    ..registerLazySingleton<ApiClient>(
+      () => ApiClient(
+        baseUrl: apiBaseUrl,
+        getToken: () async => (await sl<GetSession>()())?.token,
+      ),
+    )
     ..registerLazySingleton<ApiClient>(
       () => ApiClient(baseUrl: authBaseUrl),
       instanceName: 'auth',

@@ -4,12 +4,27 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  ApiClient({required this.baseUrl});
+  ApiClient({
+    required this.baseUrl,
+    this.getToken,
+  });
 
   final String baseUrl;
+  final Future<String?> Function()? getToken;
 
   Uri _uri(String path, [Map<String, String>? queryParams]) {
     return Uri.parse('$baseUrl$path').replace(queryParameters: queryParams);
+  }
+
+  Future<Map<String, String>> _headers() async {
+    final headers = <String, String>{'Content-Type': 'application/json'};
+    if (getToken != null) {
+      final token = await getToken!();
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+    }
+    return headers;
   }
 
   Future<ApiResponse<T>> get<T>(
@@ -18,7 +33,10 @@ class ApiClient {
     T Function(Map<String, dynamic>)? fromJson,
   }) async {
     try {
-      final res = await http.get(_uri(path, queryParams));
+      final res = await http.get(
+        _uri(path, queryParams),
+        headers: await _headers(),
+      );
       return _handleResponse<T>(res, fromJson);
     } catch (e) {
       return ApiResponse.error(e.toString());
@@ -33,7 +51,7 @@ class ApiClient {
     try {
       final res = await http.post(
         _uri(path),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _headers(),
         body: body != null ? jsonEncode(body) : null,
       );
       return _handleResponse<T>(res, fromJson);
@@ -49,6 +67,10 @@ class ApiClient {
   }) async {
     try {
       final req = http.MultipartRequest('POST', _uri(path));
+      final token = getToken != null ? await getToken!() : null;
+      if (token != null && token.isNotEmpty) {
+        req.headers['Authorization'] = 'Bearer $token';
+      }
       req.files.add(await http.MultipartFile.fromPath('file', file.path));
       final streamed = await req.send();
       final res = await http.Response.fromStream(streamed);
