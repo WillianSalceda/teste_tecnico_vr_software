@@ -114,4 +114,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get all => 'All';
+
+  @override
+  String get listingCreatedSuccess => 'Listing created successfully';
+
+  @override
+  String get invalidValue => 'Invalid value';
+
+  @override
+  String get invalidType => 'Invalid type';
+
+  @override
+  String get noListings => 'No listings found';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get exchangeRateCreatedSuccess => 'Exchange rate added successfully';
+
+  @override
+  String get invalidRate => 'Invalid rate (must be greater than zero)';
+
+  @override
+  String get noExchangeRates => 'No exchange rates yet';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get loginFailed => 'Invalid username or password';
+
+  @override
+  String get sessionExpired => 'Your session has expired. Please log in again.';
+
+  @override
+  String get testCredentials => 'Test credentials: admin / admin123';
+
+  @override
+  String get unknownError => 'Unknown error';
+
+  @override
+  String get uploadFailed => 'Upload failed';
+
+  @override
+  String get invalidResponseMissingToken => 'Invalid response: missing token';
+
+  @override
+  String get rateExampleHint => '0.19';
+
+  @override
+  String get cepHint => '00000-000';
 }

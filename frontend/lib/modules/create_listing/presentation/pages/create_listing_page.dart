@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/di/injection.dart';
-import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/refresh/listing_refresh_notifier.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../bloc/cep_bloc.dart';
@@ -15,8 +15,7 @@ class CreateListingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = sl<Locale>();
-    final l10n = AppL10n(locale: locale);
+    final l10n = AppLocalizations.of(context)!;
 
     return MultiBlocProvider(
       providers: [
@@ -31,7 +30,7 @@ class CreateListingPage extends StatelessWidget {
 class _CreateListingContent extends StatelessWidget {
   const _CreateListingContent({required this.l10n});
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {

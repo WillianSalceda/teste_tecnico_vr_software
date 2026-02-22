@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/di/injection.dart';
-import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/l10n/app_localizations_extensions.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../bloc/auth_bloc.dart';
 
 bool _isInvalidCredentialsError(String message) {
-  print(message);
   final m = message.toLowerCase();
-  return m.contains('invalid') &&
-      (m.contains('username') || m.contains('password'));
+  return (m.contains('invalid') &&
+          (m.contains('username') ||
+              m.contains('password') ||
+              m.contains('credential'))) ||
+      m.contains('usuário ou senha');
 }
 
 class LoginPage extends StatelessWidget {
@@ -18,8 +20,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = sl<Locale>();
-    final l10n = AppL10n(locale: locale);
+    final l10n = AppLocalizations.of(context)!;
 
     return ColoredBox(
       color: AppTheme.light.scaffoldBackgroundColor,
@@ -31,7 +32,7 @@ class LoginPage extends StatelessWidget {
 class _LoginContent extends StatefulWidget {
   const _LoginContent({required this.l10n});
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   @override
   State<_LoginContent> createState() => _LoginContentState();
@@ -147,7 +148,9 @@ class _LoginContentState extends State<_LoginContent> {
                                   state.message,
                                 )
                                 ? widget.l10n.loginFailed
-                                : state.message;
+                                : widget.l10n.localizeErrorMessage(
+                                    state.message,
+                                  );
                             return Container(
                               padding: const EdgeInsets.all(12),
                               margin: const EdgeInsets.only(bottom: 16),

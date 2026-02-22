@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/l10n/app_l10n.dart';
+import '../../../../../core/l10n/app_localizations.dart';
 import '../atoms/address_fields_row.dart';
 import '../atoms/cep_search.dart';
 import '../atoms/text_field_molecule.dart';
@@ -27,7 +27,7 @@ class CreateListingAddressForm extends StatelessWidget {
   final TextEditingController neighborhoodController;
   final TextEditingController cityController;
   final TextEditingController stateController;
-  final AppL10n l10n;
+  final AppLocalizations l10n;
   final String requiredFieldMessage;
   final void Function(String cep) onSearchCep;
 
@@ -46,6 +46,7 @@ class CreateListingAddressForm extends StatelessWidget {
         CepSearch(
           controller: cepController,
           cepLabel: l10n.cep,
+          cepHint: l10n.cepHint,
           onSearch: onSearchCep,
           requiredFieldMessage: requiredFieldMessage,
           invalidCepMessage: l10n.invalidCep,

@@ -6,6 +6,7 @@ class AddExchangeRateDialog extends StatefulWidget {
     required this.saveLabel,
     required this.cancelLabel,
     required this.errorInvalidRate,
+    required this.rateHint,
     required this.onSave,
     super.key,
   });
@@ -14,6 +15,7 @@ class AddExchangeRateDialog extends StatefulWidget {
   final String saveLabel;
   final String cancelLabel;
   final String errorInvalidRate;
+  final String rateHint;
   final void Function(double rate) onSave;
 
   @override
@@ -54,7 +56,7 @@ class _AddExchangeRateDialogState extends State<AddExchangeRateDialog> {
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: InputDecoration(
           labelText: widget.rateLabel,
-          hintText: '0.19',
+          hintText: widget.rateHint,
           errorText: _errorText,
         ),
         onChanged: (_) => setState(() => _errorText = null),

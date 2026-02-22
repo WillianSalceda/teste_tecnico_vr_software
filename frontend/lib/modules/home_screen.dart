@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/di/injection.dart';
-import '../core/l10n/app_l10n.dart';
+import '../core/l10n/app_localizations.dart';
 import '../core/refresh/listing_refresh_notifier.dart';
 import '../core/theme/app_theme.dart';
 import 'auth/presentation/bloc/auth_bloc.dart';
@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppL10n(locale: Localizations.localeOf(context));
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Row(
         children: [
@@ -58,7 +58,7 @@ class _Sidebar extends StatelessWidget {
 
   final int currentIndex;
   final ValueChanged<int> onDestinationSelected;
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   static const double _width = 240;
 

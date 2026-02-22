@@ -2,7 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/l10n/app_l10n.dart';
+import '../../../../../core/l10n/app_localizations.dart';
+import '../../../../../core/l10n/app_localizations_extensions.dart';
 import '../../bloc/cep_bloc.dart';
 import '../../bloc/create_listing_bloc.dart';
 import '../atoms/submit_button.dart';
@@ -19,7 +20,7 @@ class CreateListingFormTemplate extends StatefulWidget {
     super.key,
   });
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
   final CreateListingFormState state;
   final CreateListingBloc createListingBloc;
 
@@ -31,14 +32,14 @@ class CreateListingFormTemplate extends StatefulWidget {
 class _CreateListingFormTemplateState extends State<CreateListingFormTemplate> {
   final _formKey = GlobalKey<FormState>();
 
-  String _resolveErrorMessage(String key, AppL10n l10n) {
+  String _resolveErrorMessage(String key, AppLocalizations l10n) {
     switch (key) {
       case 'invalidValue':
         return l10n.invalidValue;
       case 'invalidType':
         return l10n.invalidType;
       default:
-        return key;
+        return l10n.localizeErrorMessage(key);
     }
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../modules/auth/presentation/bloc/auth_bloc.dart';
 import '../di/injection.dart';
-import '../l10n/app_l10n.dart';
+import '../l10n/app_localizations.dart';
 import 'session_expired_notifier.dart';
 
 class SessionExpiredHandler extends StatefulWidget {
@@ -19,7 +19,7 @@ class _SessionExpiredHandlerState extends State<SessionExpiredHandler> {
   @override
   void initState() {
     super.initState();
-    final l10n = AppL10n(locale: sl<Locale>());
+    final l10n = lookupAppLocalizations(sl<Locale>());
     sl<SessionExpiredNotifier>().setHandler(() {
       if (mounted) {
         context.read<AuthBloc>().add(AuthSessionExpired(l10n.sessionExpired));

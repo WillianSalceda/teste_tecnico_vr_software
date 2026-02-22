@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../domain/entities/address.dart';
 import '../../domain/entities/listing.dart';
 
@@ -12,7 +12,7 @@ class ListingCard extends StatefulWidget {
   });
 
   final Listing listing;
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   @override
   State<ListingCard> createState() => _ListingCardState();

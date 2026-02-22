@@ -115,4 +115,65 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get all => 'Todos';
+
+  @override
+  String get listingCreatedSuccess => 'Anúncio criado com sucesso';
+
+  @override
+  String get invalidValue => 'Valor inválido';
+
+  @override
+  String get invalidType => 'Tipo inválido';
+
+  @override
+  String get noListings => 'Nenhum anúncio encontrado';
+
+  @override
+  String get retry => 'Tentar novamente';
+
+  @override
+  String get exchangeRateCreatedSuccess => 'Cotação adicionada com sucesso';
+
+  @override
+  String get invalidRate => 'Taxa inválida (deve ser maior que zero)';
+
+  @override
+  String get noExchangeRates => 'Nenhuma cotação cadastrada';
+
+  @override
+  String get login => 'Entrar';
+
+  @override
+  String get logout => 'Sair';
+
+  @override
+  String get username => 'Usuário';
+
+  @override
+  String get password => 'Senha';
+
+  @override
+  String get loginFailed => 'Usuário ou senha inválidos';
+
+  @override
+  String get sessionExpired =>
+      'Sua sessão expirou. Por favor, faça login novamente.';
+
+  @override
+  String get testCredentials => 'Credenciais de teste: admin / admin123';
+
+  @override
+  String get unknownError => 'Erro desconhecido';
+
+  @override
+  String get uploadFailed => 'Falha no envio do arquivo';
+
+  @override
+  String get invalidResponseMissingToken => 'Resposta inválida: token ausente';
+
+  @override
+  String get rateExampleHint => '0,19';
+
+  @override
+  String get cepHint => '00000-000';
 }

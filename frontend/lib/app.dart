@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/di/injection.dart';
-import 'core/l10n/app_l10n.dart';
+import 'core/l10n/app_localizations.dart';
 import 'core/refresh/auth_refresh_notifier.dart';
 import 'core/session/session_expired_handler.dart';
 import 'core/theme/app_theme.dart';
@@ -44,13 +43,10 @@ class RealEstateApp extends StatelessWidget {
           child: MaterialApp.router(
             scaffoldMessengerKey: scaffoldKey,
             debugShowCheckedModeBanner: false,
-            title: AppL10n(locale: locale).appTitle,
+            title: lookupAppLocalizations(locale).appTitle,
             locale: locale,
-            supportedLocales: const [Locale('en'), Locale('pt')],
-            localizationsDelegates: const [
-              ...GlobalMaterialLocalizations.delegates,
-              GlobalWidgetsLocalizations.delegate,
-            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
             theme: AppTheme.light,
             routerConfig: _createRouter(),
           ),

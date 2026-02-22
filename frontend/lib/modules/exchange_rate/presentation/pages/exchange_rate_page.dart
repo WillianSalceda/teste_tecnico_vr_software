@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/di/injection.dart';
-import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/l10n/app_localizations_extensions.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/exchange_rate.dart';
 import '../bloc/exchange_rate_bloc.dart';
@@ -16,8 +17,7 @@ class ExchangeRatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = sl<Locale>();
-    final l10n = AppL10n(locale: locale);
+    final l10n = AppLocalizations.of(context)!;
 
     return BlocProvider<ExchangeRateBloc>(
       create: (_) {
@@ -33,7 +33,7 @@ class ExchangeRatePage extends StatelessWidget {
 class _ExchangeRateContent extends StatelessWidget {
   const _ExchangeRateContent({required this.l10n});
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   void _showAddDialog(BuildContext context, ExchangeRateBloc bloc) {
     unawaited(
@@ -44,6 +44,7 @@ class _ExchangeRateContent extends StatelessWidget {
           saveLabel: l10n.save,
           cancelLabel: l10n.cancel,
           errorInvalidRate: l10n.invalidRate,
+          rateHint: l10n.rateExampleHint,
           onSave: (rate) => bloc.add(ExchangeRateCreateRequested(rate)),
         ),
       ),
@@ -112,7 +113,7 @@ class _ExchangeRateContent extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            state.message,
+                            l10n.localizeErrorMessage(state.message),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),

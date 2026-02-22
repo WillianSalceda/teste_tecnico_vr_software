@@ -307,6 +307,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All'**
   String get all;
+
+  /// No description provided for @listingCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Listing created successfully'**
+  String get listingCreatedSuccess;
+
+  /// No description provided for @invalidValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid value'**
+  String get invalidValue;
+
+  /// No description provided for @invalidType.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid type'**
+  String get invalidType;
+
+  /// No description provided for @noListings.
+  ///
+  /// In en, this message translates to:
+  /// **'No listings found'**
+  String get noListings;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @exchangeRateCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange rate added successfully'**
+  String get exchangeRateCreatedSuccess;
+
+  /// No description provided for @invalidRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid rate (must be greater than zero)'**
+  String get invalidRate;
+
+  /// No description provided for @noExchangeRates.
+  ///
+  /// In en, this message translates to:
+  /// **'No exchange rates yet'**
+  String get noExchangeRates;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @loginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid username or password'**
+  String get loginFailed;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please log in again.'**
+  String get sessionExpired;
+
+  /// No description provided for @testCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Test credentials: admin / admin123'**
+  String get testCredentials;
+
+  /// No description provided for @unknownError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown error'**
+  String get unknownError;
+
+  /// No description provided for @uploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed'**
+  String get uploadFailed;
+
+  /// No description provided for @invalidResponseMissingToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid response: missing token'**
+  String get invalidResponseMissingToken;
+
+  /// No description provided for @rateExampleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0.19'**
+  String get rateExampleHint;
+
+  /// No description provided for @cepHint.
+  ///
+  /// In en, this message translates to:
+  /// **'00000-000'**
+  String get cepHint;
 }
 
 class _AppLocalizationsDelegate

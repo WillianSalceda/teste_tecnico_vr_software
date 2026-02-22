@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "appTitle": "Real Estate Ads",
   "listings": "Listings",
   "createListing": "Create Listing",
@@ -34,9 +35,31 @@
   "pageOf": "of {total}",
   "@pageOf": {
     "placeholders": {
-      "total": { "type": "int" }
+      "total": {
+        "type": "int"
+      }
     }
   },
   "filterByType": "Filter by type",
-  "all": "All"
+  "all": "All",
+  "listingCreatedSuccess": "Listing created successfully",
+  "invalidValue": "Invalid value",
+  "invalidType": "Invalid type",
+  "noListings": "No listings found",
+  "retry": "Retry",
+  "exchangeRateCreatedSuccess": "Exchange rate added successfully",
+  "invalidRate": "Invalid rate (must be greater than zero)",
+  "noExchangeRates": "No exchange rates yet",
+  "login": "Login",
+  "logout": "Logout",
+  "username": "Username",
+  "password": "Password",
+  "loginFailed": "Invalid username or password",
+  "sessionExpired": "Your session has expired. Please log in again.",
+  "testCredentials": "Test credentials: admin / admin123",
+  "unknownError": "Unknown error",
+  "uploadFailed": "Upload failed",
+  "invalidResponseMissingToken": "Invalid response: missing token",
+  "rateExampleHint": "0.19",
+  "cepHint": "00000-000"
 }

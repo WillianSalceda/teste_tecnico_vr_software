@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../core/di/injection.dart';
-import '../../../../core/l10n/app_l10n.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/refresh/listing_refresh_notifier.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/listing.dart';
@@ -17,8 +17,7 @@ class ListingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = sl<Locale>();
-    final l10n = AppL10n(locale: locale);
+    final l10n = AppLocalizations.of(context)!;
 
     return BlocProvider<ListingBloc>(
       create: (_) => sl<ListingBloc>(),
@@ -30,7 +29,7 @@ class ListingPage extends StatelessWidget {
 class _ListingContent extends StatefulWidget {
   const _ListingContent({required this.l10n});
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
 
   @override
   State<_ListingContent> createState() => _ListingContentState();
@@ -169,7 +168,7 @@ class _EmptyState extends StatelessWidget {
     required this.onAddTap,
   });
 
-  final AppL10n l10n;
+  final AppLocalizations l10n;
   final VoidCallback onAddTap;
 
   @override

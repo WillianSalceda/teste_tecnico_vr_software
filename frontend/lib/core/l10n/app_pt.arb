@@ -1,4 +1,5 @@
 {
+  "@@locale": "pt",
   "appTitle": "Anúncios de Imóveis",
   "listings": "Anúncios",
   "createListing": "Criar Anúncio",
@@ -32,6 +33,33 @@
   "noImage": "Sem imagem",
   "page": "Página",
   "pageOf": "de {total}",
+  "@pageOf": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "filterByType": "Filtrar por tipo",
-  "all": "Todos"
+  "all": "Todos",
+  "listingCreatedSuccess": "Anúncio criado com sucesso",
+  "invalidValue": "Valor inválido",
+  "invalidType": "Tipo inválido",
+  "noListings": "Nenhum anúncio encontrado",
+  "retry": "Tentar novamente",
+  "exchangeRateCreatedSuccess": "Cotação adicionada com sucesso",
+  "invalidRate": "Taxa inválida (deve ser maior que zero)",
+  "noExchangeRates": "Nenhuma cotação cadastrada",
+  "login": "Entrar",
+  "logout": "Sair",
+  "username": "Usuário",
+  "password": "Senha",
+  "loginFailed": "Usuário ou senha inválidos",
+  "sessionExpired": "Sua sessão expirou. Por favor, faça login novamente.",
+  "testCredentials": "Credenciais de teste: admin / admin123",
+  "unknownError": "Erro desconhecido",
+  "uploadFailed": "Falha no envio do arquivo",
+  "invalidResponseMissingToken": "Resposta inválida: token ausente",
+  "rateExampleHint": "0,19",
+  "cepHint": "00000-000"
 }
