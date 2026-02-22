@@ -48,7 +48,7 @@ class RealEstateApp extends StatelessWidget {
             locale: locale,
             supportedLocales: const [Locale('en'), Locale('pt')],
             localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
+              ...GlobalMaterialLocalizations.delegates,
               GlobalWidgetsLocalizations.delegate,
             ],
             theme: AppTheme.light,
