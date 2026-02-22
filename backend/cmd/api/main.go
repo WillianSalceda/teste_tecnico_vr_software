@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/williansalceda/teste_tecnico_vr_software/backend/internal/handler"
 	"github.com/williansalceda/teste_tecnico_vr_software/backend/internal/infrastructure/postgres"
@@ -22,9 +23,12 @@ import (
 )
 
 func main() {
+	_ = godotenv.Load()
+	_ = godotenv.Load("../.env")
+
 	dbURL := os.Getenv("DATABASE_URL")
 	if dbURL == "" {
-		dbURL = "postgres://postgres:postgres@localhost:5432/realestate?sslmode=disable"
+		log.Fatal("DATABASE_URL is required (set in .env)")
 	}
 
 	db, err := sql.Open("postgres", dbURL)
@@ -60,14 +64,14 @@ func main() {
 	addressH := handler.NewAddressHandler(getAddressByCEPUC)
 	baseURL := os.Getenv("BASE_URL")
 	if baseURL == "" {
-		baseURL = "http://localhost:8080"
+		log.Fatal("BASE_URL is required (set in .env)")
 	}
 	uploadH := handler.NewUploadHandler(baseURL)
 	router := httplib.SetupRouter(addressH, listingH, exchangeRateH, uploadH)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		log.Fatal("PORT is required (set in .env)")
 	}
 	srv := &http.Server{Addr: ":" + port, Handler: router}
 
