@@ -61,7 +61,7 @@ class _CreateListingFormTemplateState extends State<CreateListingFormTemplate> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.fromLTRB(32, 24, 32, 48),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

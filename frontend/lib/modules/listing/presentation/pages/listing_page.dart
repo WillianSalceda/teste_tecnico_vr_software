@@ -6,7 +6,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/l10n/app_l10n.dart';
 import '../../../../core/refresh/listing_refresh_notifier.dart';
-import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../domain/entities/listing.dart';
 import '../bloc/listing_bloc.dart';
 import '../components/listing_card.dart';
@@ -78,27 +78,15 @@ class _ListingContentState extends State<_ListingContent> {
         }
       },
       child: Scaffold(
+        backgroundColor: AppTheme.light.scaffoldBackgroundColor,
         appBar: AppBar(
           title: Text(widget.l10n.listings),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => context.go('/create-listing'),
-              tooltip: widget.l10n.createListing,
-            ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () =>
-                  context.read<AuthBloc>().add(const AuthLogoutRequested()),
-              tooltip: widget.l10n.logout,
-            ),
-          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              padding: const EdgeInsets.fromLTRB(32, 24, 32, 24),
               child: ListingFilterChip(
                 selectedType: _typeFilter,
                 allLabel: widget.l10n.all,
@@ -117,34 +105,111 @@ class _ListingContentState extends State<_ListingContent> {
                     PagedGridView<int, Listing>(
                       state: state,
                       fetchNextPage: fetchNextPage,
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            childAspectRatio: 2.2,
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20,
+                            childAspectRatio: 3,
                           ),
                       builderDelegate: PagedChildBuilderDelegate<Listing>(
                         itemBuilder: (context, item, index) => ListingCard(
                           listing: item,
                           l10n: widget.l10n,
                         ),
-                        noItemsFoundIndicatorBuilder: (_) => Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(widget.l10n.noListings),
-                              const SizedBox(height: 16),
-                              FilledButton(
-                                onPressed: () => context.go('/create-listing'),
-                                child: Text(widget.l10n.createListing),
-                              ),
-                            ],
-                          ),
+                        noItemsFoundIndicatorBuilder: (_) => _EmptyState(
+                          l10n: widget.l10n,
+                          onAddTap: () => context.go('/create-listing'),
                         ),
                       ),
                     ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(32, 16, 32, 24),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                border: Border(
+                  top: BorderSide(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.outline.withOpacity(0.2),
+                  ),
+                ),
+              ),
+              child: SafeArea(
+                top: false,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: () => context.go('/create-listing'),
+                    icon: const Icon(Icons.add_rounded, size: 20),
+                    label: Text(widget.l10n.createListing),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  const _EmptyState({
+    required this.l10n,
+    required this.onAddTap,
+  });
+
+  final AppL10n l10n;
+  final VoidCallback onAddTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(48),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0D9488).withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.home_work_outlined,
+                size: 64,
+                color: Color(0xFF0D9488),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              l10n.noListings,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            FilledButton.icon(
+              onPressed: onAddTap,
+              icon: const Icon(Icons.add_rounded, size: 20),
+              label: Text(l10n.createListing),
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 14,
+                ),
               ),
             ),
           ],

@@ -20,30 +20,32 @@ class ListingFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        Text(filterLabel, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          children: [
-            FilterChip(
-              label: Text(allLabel),
-              selected: selectedType == null,
-              onSelected: (_) => onTypeChanged(null),
-            ),
-            FilterChip(
-              label: Text(saleLabel),
-              selected: selectedType == 'sale',
-              onSelected: (_) => onTypeChanged('sale'),
-            ),
-            FilterChip(
-              label: Text(rentLabel),
-              selected: selectedType == 'rent',
-              onSelected: (_) => onTypeChanged('rent'),
-            ),
-          ],
+        Text(
+          filterLabel,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(width: 4),
+        FilterChip(
+          label: Text(allLabel),
+          selected: selectedType == null,
+          onSelected: (_) => onTypeChanged(null),
+        ),
+        FilterChip(
+          label: Text(saleLabel),
+          selected: selectedType == 'sale',
+          onSelected: (_) => onTypeChanged('sale'),
+        ),
+        FilterChip(
+          label: Text(rentLabel),
+          selected: selectedType == 'rent',
+          onSelected: (_) => onTypeChanged('rent'),
         ),
       ],
     );

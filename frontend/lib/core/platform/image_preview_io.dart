@@ -7,9 +7,9 @@ Widget buildImagePreview(String path, {double? height, double? width}) {
     borderRadius: BorderRadius.circular(8),
     child: Image.file(
       File(path),
-      height: height ?? 120,
+      height: height ?? 160,
       width: width ?? double.infinity,
-      fit: BoxFit.cover,
+      fit: BoxFit.scaleDown,
     ),
   );
 }

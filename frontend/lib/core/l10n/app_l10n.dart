@@ -121,4 +121,8 @@ class AppL10n {
   String get sessionExpired => isPt
       ? 'Sua sessão expirou. Por favor, faça login novamente.'
       : 'Your session has expired. Please log in again.';
+
+  String get testCredentials => isPt
+      ? 'Credenciais de teste: admin / admin123'
+      : 'Test credentials: admin / admin123';
 }

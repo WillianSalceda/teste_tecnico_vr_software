@@ -7,6 +7,7 @@ import 'core/di/injection.dart';
 import 'core/l10n/app_l10n.dart';
 import 'core/refresh/auth_refresh_notifier.dart';
 import 'core/session/session_expired_handler.dart';
+import 'core/theme/app_theme.dart';
 import 'modules/auth/domain/usecases/get_session.dart';
 import 'modules/auth/presentation/bloc/auth_bloc.dart';
 import 'modules/auth/presentation/pages/login_page.dart';
@@ -50,11 +51,7 @@ class RealEstateApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-              useMaterial3: true,
-              visualDensity: VisualDensity.standard,
-            ),
+            theme: AppTheme.light,
             routerConfig: _createRouter(),
           ),
         ),
