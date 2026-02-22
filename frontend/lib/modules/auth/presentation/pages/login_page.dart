@@ -97,7 +97,7 @@ class _LoginContentState extends State<_LoginContent> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Real Estate Ads',
+                        widget.l10n.appTitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
