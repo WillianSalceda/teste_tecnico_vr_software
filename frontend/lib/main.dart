@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'app.dart';
+import 'core/di/injection.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final localeCode = String.fromEnvironment(
     'FLUTTER_LOCALE',
     defaultValue: 'en',
@@ -12,15 +15,8 @@ void main() {
     'API_BASE_URL',
     defaultValue: 'http://localhost:8080',
   );
-  const authApiBaseUrl = String.fromEnvironment(
-    'AUTH_API_BASE_URL',
-    defaultValue: 'http://localhost:9090',
-  );
-  runApp(
-    RealEstateApp(
-      apiBaseUrl: apiBaseUrl,
-      locale: locale,
-      authApiBaseUrl: authApiBaseUrl,
-    ),
-  );
+
+  await configureDependencies(apiBaseUrl: apiBaseUrl, locale: locale);
+
+  runApp(const RealEstateApp());
 }

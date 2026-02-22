@@ -83,4 +83,11 @@ class AppL10n {
   String get filterByType => isPt ? 'Filtrar por tipo' : 'Filter by type';
 
   String get all => isPt ? 'Todos' : 'All';
+
+  String get listingCreatedSuccess =>
+      isPt ? 'Anúncio criado com sucesso' : 'Listing created successfully';
+
+  String get invalidValue => isPt ? 'Valor inválido' : 'Invalid value';
+
+  String get invalidType => isPt ? 'Tipo inválido' : 'Invalid type';
 }

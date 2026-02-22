@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/di/injection.dart';
 import 'core/l10n/app_l10n.dart';
+import 'modules/create_listing/presentation/pages/create_listing_page.dart';
 import 'modules/home_screen.dart';
 
 class RealEstateApp extends StatelessWidget {
@@ -52,7 +53,7 @@ class RealEstateApp extends StatelessWidget {
                 GoRoute(
                   path: '/create-listing',
                   pageBuilder: (context, state) => const MaterialPage(
-                    child: _PlaceholderPage(label: 'Create Listing'),
+                    child: CreateListingPage(),
                   ),
                 ),
               ],
