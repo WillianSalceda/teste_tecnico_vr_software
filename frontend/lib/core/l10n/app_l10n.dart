@@ -95,4 +95,15 @@ class AppL10n {
       isPt ? 'Nenhum anúncio encontrado' : 'No listings found';
 
   String get retry => isPt ? 'Tentar novamente' : 'Retry';
+
+  String get exchangeRateCreatedSuccess => isPt
+      ? 'Cotação adicionada com sucesso'
+      : 'Exchange rate added successfully';
+
+  String get invalidRate => isPt
+      ? 'Taxa inválida (deve ser maior que zero)'
+      : 'Invalid rate (must be greater than zero)';
+
+  String get noExchangeRates =>
+      isPt ? 'Nenhuma cotação cadastrada' : 'No exchange rates yet';
 }

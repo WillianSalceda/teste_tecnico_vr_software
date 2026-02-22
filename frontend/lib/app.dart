@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'core/di/injection.dart';
 import 'core/l10n/app_l10n.dart';
 import 'modules/create_listing/presentation/pages/create_listing_page.dart';
+import 'modules/exchange_rate/presentation/pages/exchange_rate_page.dart';
 import 'modules/home_screen.dart';
 import 'modules/listing/presentation/pages/listing_page.dart';
 
@@ -64,7 +65,7 @@ class RealEstateApp extends StatelessWidget {
                 GoRoute(
                   path: '/exchange-rate',
                   pageBuilder: (context, state) => const MaterialPage(
-                    child: _PlaceholderPage(label: 'Exchange Rate'),
+                    child: ExchangeRatePage(),
                   ),
                 ),
               ],
@@ -73,16 +74,5 @@ class RealEstateApp extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _PlaceholderPage extends StatelessWidget {
-  const _PlaceholderPage({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(label));
   }
 }

@@ -11,6 +11,12 @@ import '../../modules/create_listing/domain/usecases/create_listing.dart';
 import '../../modules/create_listing/domain/usecases/get_address_by_cep.dart';
 import '../../modules/create_listing/presentation/bloc/cep_bloc.dart';
 import '../../modules/create_listing/presentation/bloc/create_listing_bloc.dart';
+import '../../modules/exchange_rate/data/datasources/exchange_rate_remote_datasource.dart';
+import '../../modules/exchange_rate/data/repositories/exchange_rate_repository.dart';
+import '../../modules/exchange_rate/domain/repositories/i_exchange_rate_repository.dart';
+import '../../modules/exchange_rate/domain/usecases/create_exchange_rate.dart';
+import '../../modules/exchange_rate/domain/usecases/get_exchange_rates.dart';
+import '../../modules/exchange_rate/presentation/bloc/exchange_rate_bloc.dart';
 import '../../modules/listing/data/datasources/listing_remote_datasource.dart';
 import '../../modules/listing/data/repositories/listing_repository.dart';
 import '../../modules/listing/domain/repositories/i_listing_repository.dart';
@@ -57,6 +63,27 @@ Future<void> configureDependencies({
     )
     ..registerFactory<CreateListingBloc>(
       () => CreateListingBloc(sl<CreateListing>()),
+    );
+
+  // exchange_rate
+  sl
+    ..registerFactory<IExchangeRateRemoteDatasource>(
+      () => ExchangeRateRemoteDatasource(sl<ApiClient>()),
+    )
+    ..registerFactory<IExchangeRateRepository>(
+      () => ExchangeRateRepository(sl<IExchangeRateRemoteDatasource>()),
+    )
+    ..registerFactory<GetExchangeRates>(
+      () => GetExchangeRates(sl<IExchangeRateRepository>()),
+    )
+    ..registerFactory<CreateExchangeRate>(
+      () => CreateExchangeRate(sl<IExchangeRateRepository>()),
+    )
+    ..registerFactory<ExchangeRateBloc>(
+      () => ExchangeRateBloc(
+        sl<GetExchangeRates>(),
+        sl<CreateExchangeRate>(),
+      ),
     );
 
   // listing
