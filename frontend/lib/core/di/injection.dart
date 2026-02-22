@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../modules/auth/data/datasources/auth_local_storage.dart';
+import '../../modules/auth/data/datasources/auth_remote_datasource.dart';
+import '../../modules/auth/data/repositories/auth_repository.dart';
+import '../../modules/auth/domain/repositories/i_auth_repository.dart';
+import '../../modules/auth/domain/usecases/get_session.dart';
+import '../../modules/auth/domain/usecases/login.dart';
+import '../../modules/auth/domain/usecases/logout.dart';
+import '../../modules/auth/presentation/bloc/auth_bloc.dart';
 import '../../modules/create_listing/data/datasources/address_remote_datasource.dart';
 import '../../modules/create_listing/data/datasources/create_listing_remote_datasource.dart';
 import '../../modules/create_listing/data/repositories/address_repository.dart';
@@ -23,19 +32,30 @@ import '../../modules/listing/domain/repositories/i_listing_repository.dart';
 import '../../modules/listing/domain/usecases/get_listings.dart';
 import '../../modules/listing/presentation/bloc/listing_bloc.dart';
 import '../api/api_client.dart';
+import '../refresh/auth_refresh_notifier.dart';
 import '../refresh/listing_refresh_notifier.dart';
 
 final GetIt sl = GetIt.instance;
 
 Future<void> configureDependencies({
   required String apiBaseUrl,
+  required String authBaseUrl,
   required Locale locale,
 }) async {
+  final prefs = await SharedPreferences.getInstance();
+
   sl
     ..registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiBaseUrl))
+    ..registerLazySingleton<ApiClient>(
+      () => ApiClient(baseUrl: authBaseUrl),
+      instanceName: 'auth',
+    )
     ..registerLazySingleton<Locale>(() => locale)
     ..registerLazySingleton<ListingRefreshNotifier>(
       () => ListingRefreshNotifier(),
+    )
+    ..registerLazySingleton<AuthRefreshNotifier>(
+      () => AuthRefreshNotifier(),
     );
 
   // create_listing
@@ -83,6 +103,31 @@ Future<void> configureDependencies({
       () => ExchangeRateBloc(
         sl<GetExchangeRates>(),
         sl<CreateExchangeRate>(),
+      ),
+    );
+
+  // auth
+  sl
+    ..registerFactory<IAuthRemoteDatasource>(
+      () => AuthRemoteDatasource(sl<ApiClient>(instanceName: 'auth')),
+    )
+    ..registerFactory<IAuthLocalStorage>(
+      () => AuthLocalStorage(prefs),
+    )
+    ..registerFactory<IAuthRepository>(
+      () => AuthRepository(
+        sl<IAuthRemoteDatasource>(),
+        sl<IAuthLocalStorage>(),
+      ),
+    )
+    ..registerFactory<Login>(() => Login(sl<IAuthRepository>()))
+    ..registerFactory<Logout>(() => Logout(sl<IAuthRepository>()))
+    ..registerFactory<GetSession>(() => GetSession(sl<IAuthRepository>()))
+    ..registerFactory<AuthBloc>(
+      () => AuthBloc(
+        sl<Login>(),
+        sl<Logout>(),
+        sl<GetSession>(),
       ),
     );
 

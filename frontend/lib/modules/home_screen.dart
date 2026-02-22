@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/l10n/app_l10n.dart';
+import 'auth/presentation/bloc/auth_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    super.key,
     required this.navigationShell,
+    super.key,
   });
 
   final StatefulNavigationShell navigationShell;
@@ -17,6 +19,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.appTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () =>
+                context.read<AuthBloc>().add(const AuthLogoutRequested()),
+            tooltip: l10n.logout,
+          ),
+        ],
       ),
       body: navigationShell,
       bottomNavigationBar: NavigationBar(

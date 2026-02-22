@@ -106,4 +106,15 @@ class AppL10n {
 
   String get noExchangeRates =>
       isPt ? 'Nenhuma cotação cadastrada' : 'No exchange rates yet';
+
+  String get login => isPt ? 'Entrar' : 'Login';
+
+  String get logout => isPt ? 'Sair' : 'Logout';
+
+  String get username => isPt ? 'Usuário' : 'Username';
+
+  String get password => isPt ? 'Senha' : 'Password';
+
+  String get loginFailed =>
+      isPt ? 'Usuário ou senha inválidos' : 'Invalid username or password';
 }
