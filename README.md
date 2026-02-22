@@ -106,7 +106,7 @@ projetos que não possuam quaisquer perspectivas de crescimento.
 Sim. Os padrões adotados para o backend foram com a intenção de mantê-lo robusto mas, ao mesmo tempo, simples.
 Poderíamos por exemplo pensar em uma separação modular (assim como foi feito no frontend), DDD, design patterns, etc.
 
-### Isso significa que a adoção desses padrões arquiteturais são os ideais?
+### Isso significa que a adoção desses padrões arquiteturais é o ideal?
 
 **De forma alguma!**
 O padrão arquitetural ideal é aquele que a empresa já segue, que o time está confortável em atuar e/ou aquele que
