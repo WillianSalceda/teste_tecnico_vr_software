@@ -55,10 +55,19 @@ class _ExchangeRateContent extends StatelessWidget {
         title: Text(l10n.exchangeRates),
         actions: [
           IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _showAddDialog(
+              context,
+              context.read<ExchangeRateBloc>(),
+            ),
+            tooltip: l10n.addExchangeRate,
+          ),
+          IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => context.read<ExchangeRateBloc>().add(
               const ExchangeRateLoadRequested(),
             ),
+            tooltip: l10n.retry,
           ),
         ],
       ),
