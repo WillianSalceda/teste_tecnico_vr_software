@@ -43,6 +43,6 @@ func SetupRouter(
 		api.POST("/upload", uploadHandler.Upload)
 	}
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.PersistAuthorization(true)))
 	return r
 }
