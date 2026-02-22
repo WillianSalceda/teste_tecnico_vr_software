@@ -117,4 +117,8 @@ class AppL10n {
 
   String get loginFailed =>
       isPt ? 'Usuário ou senha inválidos' : 'Invalid username or password';
+
+  String get sessionExpired => isPt
+      ? 'Sua sessão expirou. Por favor, faça login novamente.'
+      : 'Your session has expired. Please log in again.';
 }

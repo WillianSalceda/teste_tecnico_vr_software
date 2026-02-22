@@ -25,7 +25,12 @@ class AuthAuthenticated extends AuthState {
 }
 
 class AuthUnauthenticated extends AuthState {
-  const AuthUnauthenticated();
+  const AuthUnauthenticated({this.sessionExpiredMessage});
+
+  final String? sessionExpiredMessage;
+
+  @override
+  List<Object?> get props => [sessionExpiredMessage];
 }
 
 class AuthError extends AuthState {

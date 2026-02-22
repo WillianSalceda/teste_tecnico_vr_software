@@ -27,3 +27,12 @@ class AuthLoginRequested extends AuthEvent {
 class AuthLogoutRequested extends AuthEvent {
   const AuthLogoutRequested();
 }
+
+class AuthSessionExpired extends AuthEvent {
+  const AuthSessionExpired(this.message);
+
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
+}

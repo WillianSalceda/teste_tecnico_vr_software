@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthCheckRequested>(_onCheckRequested);
     on<AuthLoginRequested>(_onLoginRequested);
     on<AuthLogoutRequested>(_onLogoutRequested);
+    on<AuthSessionExpired>(_onSessionExpired);
   }
 
   final Login _login;
@@ -58,5 +59,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await _logout(NoParams());
     emit(const AuthUnauthenticated());
+  }
+
+  Future<void> _onSessionExpired(
+    AuthSessionExpired event,
+    Emitter<AuthState> emit,
+  ) async {
+    await _logout(NoParams());
+    emit(AuthUnauthenticated(sessionExpiredMessage: event.message));
   }
 }

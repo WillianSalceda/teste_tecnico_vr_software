@@ -7,10 +7,12 @@ class ApiClient {
   ApiClient({
     required this.baseUrl,
     this.getToken,
+    this.onSessionExpired,
   });
 
   final String baseUrl;
   final Future<String?> Function()? getToken;
+  final void Function()? onSessionExpired;
 
   Uri _uri(String path, [Map<String, String>? queryParams]) {
     return Uri.parse('$baseUrl$path').replace(queryParameters: queryParams);
@@ -74,6 +76,9 @@ class ApiClient {
       req.files.add(await http.MultipartFile.fromPath('file', file.path));
       final streamed = await req.send();
       final res = await http.Response.fromStream(streamed);
+      if (res.statusCode == 401 && onSessionExpired != null) {
+        onSessionExpired!();
+      }
       final decoded = res.body.isNotEmpty
           ? (jsonDecode(res.body) as Map<String, dynamic>? ?? {})
           : <String, dynamic>{};
@@ -94,6 +99,10 @@ class ApiClient {
     http.Response res,
     T Function(Map<String, dynamic>)? fromJson,
   ) {
+    if (res.statusCode == 401 && onSessionExpired != null) {
+      onSessionExpired!();
+    }
+
     final decoded = res.body.isNotEmpty
         ? (jsonDecode(res.body) as Map<String, dynamic>? ?? {})
         : <String, dynamic>{};

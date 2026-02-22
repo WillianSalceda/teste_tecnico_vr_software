@@ -34,6 +34,7 @@ import '../../modules/listing/presentation/bloc/listing_bloc.dart';
 import '../api/api_client.dart';
 import '../refresh/auth_refresh_notifier.dart';
 import '../refresh/listing_refresh_notifier.dart';
+import '../session/session_expired_notifier.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -45,10 +46,12 @@ Future<void> configureDependencies({
   final prefs = await SharedPreferences.getInstance();
 
   sl
+    ..registerLazySingleton<SessionExpiredNotifier>(SessionExpiredNotifier.new)
     ..registerLazySingleton<ApiClient>(
       () => ApiClient(
         baseUrl: apiBaseUrl,
         getToken: () async => (await sl<GetSession>()())?.token,
+        onSessionExpired: () => sl<SessionExpiredNotifier>().notify(),
       ),
     )
     ..registerLazySingleton<ApiClient>(

@@ -99,6 +99,15 @@ void main() {
       act: (b) => b.add(const AuthLogoutRequested()),
       expect: () => [const AuthUnauthenticated()],
     );
+
+    blocTest<AuthBloc, AuthState>(
+      'emits [AuthUnauthenticated with message] when AuthSessionExpired',
+      build: () => bloc,
+      act: (b) => b.add(const AuthSessionExpired('Session expired message')),
+      expect: () => [
+        AuthUnauthenticated(sessionExpiredMessage: 'Session expired message'),
+      ],
+    );
   });
 }
 
