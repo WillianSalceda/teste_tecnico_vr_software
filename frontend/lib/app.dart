@@ -29,6 +29,7 @@ class RealEstateApp extends StatelessWidget {
           sl<AuthRefreshNotifier>().refresh();
         },
         child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           title: AppL10n(locale: locale).appTitle,
           locale: locale,
           supportedLocales: const [Locale('en'), Locale('pt')],
