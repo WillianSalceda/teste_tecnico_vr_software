@@ -2,9 +2,11 @@ package viacep_test
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/williansalceda/teste_tecnico_vr_software/backend/internal/infrastructure/viacep"
 )
@@ -38,7 +40,48 @@ func TestClient_GetAddressByCEP_InvalidCEP(t *testing.T) {
 
 	client := viacep.NewClient(srv.URL, 0)
 	_, err := client.GetAddressByCEP(context.Background(), "00000000")
-	if err != viacep.ErrCEPInvalid {
+	if !errors.Is(err, viacep.ErrCEPInvalid) {
 		t.Errorf("expected ErrCEPInvalid, got %v", err)
+	}
+}
+
+func TestClient_GetAddressByCEP_HTTPNon200_ReturnsErrCEPInvalid(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNotFound)
+	}))
+	defer srv.Close()
+
+	client := viacep.NewClient(srv.URL, 0)
+	_, err := client.GetAddressByCEP(context.Background(), "01310100")
+	if !errors.Is(err, viacep.ErrCEPInvalid) {
+		t.Errorf("expected ErrCEPInvalid when status != 200, got %v", err)
+	}
+}
+
+func TestClient_GetAddressByCEP_InvalidJSON_ReturnsErrViaCEPUnavailable(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		w.Write([]byte(`not valid json`))
+	}))
+	defer srv.Close()
+
+	client := viacep.NewClient(srv.URL, 0)
+	_, err := client.GetAddressByCEP(context.Background(), "01310100")
+	if !errors.Is(err, viacep.ErrViaCEPUnavailable) {
+		t.Errorf("expected ErrViaCEPUnavailable on invalid JSON, got %v", err)
+	}
+}
+
+func TestClient_GetAddressByCEP_Timeout_ReturnsErrViaCEPUnavailable(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(100 * time.Millisecond)
+		w.WriteHeader(200)
+	}))
+	defer srv.Close()
+
+	client := viacep.NewClient(srv.URL, 1*time.Millisecond)
+	_, err := client.GetAddressByCEP(context.Background(), "01310100")
+	if !errors.Is(err, viacep.ErrViaCEPUnavailable) {
+		t.Errorf("expected ErrViaCEPUnavailable on timeout, got %v", err)
 	}
 }
