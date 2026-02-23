@@ -199,18 +199,6 @@ class _EmptyState extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: onAddTap,
-              icon: const Icon(Icons.add_rounded, size: 20),
-              label: Text(l10n.createListing),
-              style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 14,
-                ),
-              ),
-            ),
           ],
         ),
       ),
