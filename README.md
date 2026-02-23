@@ -23,7 +23,36 @@ git clone https://github.com/WillianSalceda/teste_tecnico_vr_software.git
 cd teste_tecnico_vr_software
 ```
 
-### 2. Subir o ambiente (Docker Compose)
+### 2. Configuração (.env)
+
+Já configurado por padrão para testes, altere conforme julgar necessário.
+
+#### Raiz do projeto (`.env`)
+
+Usado pelo `docker-compose` para os serviços backend e auth:
+
+```env
+# Backend
+PORT=8080
+BASE_URL=http://localhost:8080
+DATABASE_URL=postgres://postgres:postgres@postgres:5432/realestate?sslmode=disable
+JWT_SECRET=<string-secreta-para-jwt>
+
+# Auth Service
+AUTH_PORT=9090
+JWT_EXPIRATION_MS=86400000
+```
+
+#### Frontend (`frontend/.env`)
+
+Usado pela aplicação Flutter para as URLs das APIs:
+
+```env
+API_BASE_URL=http://localhost:8080
+AUTH_API_BASE_URL=http://localhost:9090
+```
+
+### 3. Subir o ambiente (Docker Compose)
 
 Da raiz do projeto:
 
@@ -40,7 +69,7 @@ docker-compose up -d
 | Auth (Java) | http://localhost:9090                                           |
 | PostgreSQL  | localhost:5432 (user: postgres, pass: postgres, db: realestate) |
 
-### 3. Rodar o frontend
+### 4. Rodar o frontend
 
 ```bash
 cd frontend
