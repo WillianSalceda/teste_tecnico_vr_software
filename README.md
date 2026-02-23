@@ -1,33 +1,49 @@
-﻿# Sistema de Anúncios de Imóveis (Teste Técnico)
+# Sistema de Anúncios de Imóveis
+
+Projeto desenvolvido como parte do processo seletivo na etapa de teste técnico.<br/>
+Prazo de 2 dias para o desenvolvimento e entrega.
 
 ## Stack
 
-- **Go 1.26**
-- **Flutter 3.41**
-- **Java 25 + Spring Boot 4**
-- **Docker Compose**
+| Camada         | Tecnologia                         |
+|----------------|------------------------------------|
+| Backend (main) | Go                                 | 
+| Backend (auth) | Java (Spring Boot)                 |
+| Frontend       | Dart (Flutter)                     | 
+| Banco de Dados | PostgreSQL                         | 
+| DevOps         | Docker, Docker Compose, Dockerfile |   
+| Testes         | Go Test, Flutter Test, BLoC test   |
 
 ## Execução
 
-### Docker Compose
+### 1. Clone
 
-Este é o ambiente backend/auth completo.
+```bash
+git clone https://github.com/WillianSalceda/teste_tecnico_vr_software.git
+cd teste_tecnico_vr_software
+```
+
+### 2. Subir o ambiente (Docker Compose)
+
+Da raiz do projeto:
 
 ```bash
 docker-compose up -d
 ```
 
-**Importante:** O build via Docker inclui a execução dos testes do backend. Se algum teste falhar, o build será
-interrompido.
+**Importante:** O build inclui a execução dos testes do backend. Se algum teste falhar, o build será interrompido.
 
-- API Go: http://localhost:8080
-- Swagger: http://localhost:8080/swagger/index.html
-- Auth (Java): http://localhost:9090
-- PostgreSQL: localhost:5432 (user: postgres, pass: postgres, db: realestate)
+| Serviço     | URL                                                             |
+|-------------|-----------------------------------------------------------------|
+| API Go      | http://localhost:8080                                           |
+| Swagger     | http://localhost:8080/swagger/index.html                        |
+| Auth (Java) | http://localhost:9090                                           |
+| PostgreSQL  | localhost:5432 (user: postgres, pass: postgres, db: realestate) |
 
-### Frontend
+### 3. Rodar o frontend
 
 ```bash
+cd frontend
 flutter pub get
 flutter run -d windows
 ```
@@ -44,7 +60,9 @@ flutter run -d windows --dart-define=FLUTTER_LOCALE=pt
 flutter run -d windows --dart-define=FLUTTER_LOCALE=en
 ```
 
-### Backend (desenvolvimento local)
+### Desenvolvimento local (opcional)
+
+#### Backend (Go)
 
 ```bash
 cd backend
@@ -52,7 +70,7 @@ go mod tidy
 go run .
 ```
 
-### Auth Service (desenvolvimento local)
+#### Auth (Java)
 
 ```bash
 cd auth-service
